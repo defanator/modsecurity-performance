@@ -1,0 +1,54 @@
+#!/usr/bin/make
+
+NGINXVER={{ nginxver }}
+LMSREV={{ lmsrev }}
+CONNECTORREV={{ connectorrev }}
+
+default:
+	@echo "valid targets: all, lms, ngxmod"
+
+all: lms ngxmod
+
+ModSecurity:
+	@git clone https://github.com/SpiderLabs/ModSecurity.git && \
+	cd ModSecurity && \
+	git checkout $(LMSREV) && \
+	git submodule init && \
+	git submodule update
+
+ModSecurity-nginx:
+	@git clone https://github.com/SpiderLabs/ModSecurity-nginx.git && \
+	cd ModSecurity-nginx && \
+	git checkout $(CONNECTORREV)
+
+lms:	ModSecurity
+	@cd ModSecurity && \
+	./build.sh && \
+	./configure --prefix=/usr --without-lmdb && \
+	make -j4 && \
+	sudo make install
+	@touch $@
+
+nginx-$(NGINXVER).tar.gz:
+	@wget http://nginx.org/download/nginx-$(NGINXVER).tar.gz
+
+nginx-$(NGINXVER): nginx-$(NGINXVER).tar.gz
+	@tar mzvxf nginx-$(NGINXVER).tar.gz
+
+ngxmod:	ModSecurity ModSecurity-nginx nginx-$(NGINXVER)
+	@cd nginx-$(NGINXVER) && \
+	export MODSECURITY_INC=/usr/include && \
+	export MODSECURITY_LIB=/usr/lib && \
+	export NGX_IGNORE_RPATH=YES && \
+	./configure --with-compat --with-debug --with-cc-opt="-DMODSECURITY_DDEBUG=1 -DMODSECURITY_SANITY_CHECKS=1" --add-dynamic-module=../ModSecurity-nginx && \
+	make modules && \
+	cp -p objs/ngx_http_modsecurity_module.so ngx_http_modsecurity_module-debug.so && \
+	make clean && \
+	./configure --with-compat --add-dynamic-module=../ModSecurity-nginx && \
+	make modules && \
+	cp -p objs/ngx_http_modsecurity_module.so ./
+	@cp -p nginx-$(NGINXVER)/*.so ./
+	@touch $@
+
+clean:
+	@rm -rf ModSecurity/ ModSecurity-nginx/ nginx-$(NGINXVER).tar.gz nginx-$(NGINXVER)/ lms ngxmod
