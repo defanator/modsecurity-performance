@@ -15,42 +15,42 @@ KVM/libvirt is probably the best choice for servers.
 
 ## How to use
 
- 1. Adjust `pillars/versions.sls` if you want to build some custom
+1. Adjust `pillars/versions.sls` if you want to build some custom
 versions/revisions/branches of either ModSecurity or ModSecurity-nginx.
 
- 2. Prepare VM (could take some time as this step includes
+2. Prepare VM (could take some time as this step includes
 compilation of all the prerequisites required for testing:
 libmodsecurity and ModSecurity-nginx connector module):
 
-```
-vagrant up
-```
+    ```
+    vagrant up
+    ```
 
- 3. Log in into the VM:
+3. Log in into the VM:
 
-```
-vagrant ssh
-```
+    ```
+    vagrant ssh
+    ```
 
- 4. Run a set of performance tests and get a summary:
+4. Run a set of performance tests and get a summary:
 
-```
-cd /srv/salt/files
-./perfrun.sh run
-./perfrun.sh stats
-```
+    ```
+    cd /srv/salt/files
+    ./perfrun.sh run
+    ./perfrun.sh stats
+    ```
 
 ## What is being tested
 
 Currently there are three locations configured in nginx:
 
- * `/modsec-off/` - proxies all requests to local server with no additional
+* `/modsec-off/` - proxies all requests to local server with no additional
 processing
 
- * `/modsec-light/` - proxies all requests to local server with libmodsecurity
+* `/modsec-light/` - proxies all requests to local server with libmodsecurity
 turned on, but without any actual rules
 
- * `/modsec-full/` - proxies all requests to local server with libmodsecurity
+* `/modsec-full/` - proxies all requests to local server with libmodsecurity
 turned on and full OWASP CRS v3.0.0 loaded
 
 ## Sample results
