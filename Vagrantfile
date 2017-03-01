@@ -3,16 +3,15 @@
 
 Vagrant.configure("2") do |config|
   mem  = 1024
+  cpus = 2
   host = RbConfig::CONFIG['host_os']
 
   # provide more resources to vm
   if host =~ /darwin/
-    mem = `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 2
-  end
-
-  # provider specific settings
-  config.vm.provider "virtualbox" do |vbox|
-    vbox.memory = mem
+    mem = [4096, `sysctl -n hw.memsize`.to_i / 1024 / 1024 / 2].min
+  elsif host =~ /linux/
+    cpus = [2, `getconf _NPROCESSORS_ONLN`.to_i / 2].max
+    mem = [4096, `awk '/MemTotal/ {print $2}' /proc/meminfo`.to_i / 1024 / 2].min
   end
 
   config.vm.box = "ubuntu/yakkety64"
@@ -25,6 +24,20 @@ Vagrant.configure("2") do |config|
   # mount states and pillars to the appropriate locations
   config.vm.synced_folder "states/", "/srv/salt/", type: "nfs"
   config.vm.synced_folder "pillars/", "/srv/pillar/", type: "nfs"
+
+  # provider specific settings
+  config.vm.provider "virtualbox" do |vbox, override|
+    vbox.cpus = cpus
+    vbox.memory = mem
+  end
+
+  config.vm.provider :libvirt do |libvirt, override|
+    override.vm.box = "wholebits/ubuntu16.10-64"
+    libvirt.cpus = cpus
+    libvirt.memory = mem
+    libvirt.driver = "kvm"
+    libvirt.cpu_mode = "host-passthrough"
+  end
 
   config.vm.provision :salt do |salt|
     salt.minion_config     = "minion"
