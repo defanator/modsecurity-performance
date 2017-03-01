@@ -26,6 +26,13 @@ libmodsecurity and ModSecurity-nginx connector module):
     vagrant up
     ```
 
+    For the reference:
+
+    * on libvirt-based 12-core VM (backed by bare-metal server with 24-core
+Xeon E5645 2.4Ghz) provisioning tooks about 7 minutes
+    * on VirtualBox-based 2-core VM (backed by early 2015 MBP A1502 2-core
+i5 2.9GHz) provisioning tooks about 8.5 minutes
+
 3. Log in into the VM:
 
     ```
