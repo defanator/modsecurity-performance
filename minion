@@ -1,3 +1,4 @@
+master_type: disable
 file_client: local
 state_output: changes
 state_verbose: False
