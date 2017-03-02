@@ -1,6 +1,7 @@
 /etc/security/limits.d/global-overrides.conf:
   file.managed:
     - mode: 0644
+    - makedirs: True
     - contents: |
         * soft core unlimited
         * hard core unlimited
@@ -10,6 +11,7 @@
 /etc/systemd/system.conf.d/global-overrides.conf:
   file.managed:
     - mode: 0644
+    - makedirs: True
     - contents: |
         [Manager]
         DefaultLimitCORE=infinity
