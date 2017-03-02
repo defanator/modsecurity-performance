@@ -7,6 +7,14 @@
         * soft nofile 131072
         * hard nofile 131072
 
+/etc/systemd/system.conf.d/global-overrides.conf:
+  file.managed:
+    - mode: 0644
+    - contents: |
+        [Manager]
+        DefaultLimitCORE=infinity
+        DefaultLimitNOFILE=131072
+
 kernel.core_pattern:
   sysctl.present:
     - value: /tmp/%e.%p.core
