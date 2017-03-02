@@ -7,6 +7,7 @@ Dependency packages:
       - automake
       - autoconf
       - bison
+      - curl
       - flex
       - g++
       - gcc
@@ -19,6 +20,7 @@ Dependency packages:
       - libxml2-dev
       - libyajl-dev
       - make
+      - man
       - ministat
       - pkg-config
       - wrk
