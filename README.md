@@ -1,22 +1,28 @@
-# Purpose
+# About
 
 This repository contains a number of configurations (represented
 in SaltStack states and Vagrantfile descriptions) that can be used
-to test performance of (lib)ModSecurity with various connectors
-like ModSecurity-nginx.
+to test performance of
+[ModSecurity](https://github.com/SpiderLabs/ModSecurity)
+with various connectors, primarily
+[ModSecurity-nginx](https://github.com/SpiderLabs/ModSecurity-nginx).
 
 ## Prerequisites
 
- * Vagrant
+ * [Vagrant](https://www.vagrantup.com/)
  * your favorite virtualization plug-in for Vagrant
 
-VirtualBox is known to work on MacOS/Linux-based laptops, while
-KVM/libvirt is probably the best choice for servers.
+[VirtualBox](https://www.virtualbox.org/)
+is known to work on MacOS/Linux-based laptops, while
+[KVM/libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt)
+is probably the best choice for servers.
 
 ## How to use
 
-1. Adjust `pillars/versions.sls` if you want to build some custom
-versions/revisions/branches of either ModSecurity or ModSecurity-nginx.
+1. Adjust
+[pillars/versions.sls](https://github.com/defanator/modsecurity-performance/blob/master/pillars/versions.sls)
+if you want to build some custom versions/revisions/branches
+of either ModSecurity or ModSecurity-nginx.
 
 2. Prepare VM (could take some time as this step includes
 compilation of all the prerequisites required for testing:
