@@ -1,5 +1,6 @@
 base:
   '*':
+    - system
     - user
     - makeenv
     - build
