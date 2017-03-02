@@ -8,14 +8,19 @@
         * soft nofile 131072
         * hard nofile 131072
 
-/etc/systemd/system.conf.d/global-overrides.conf:
+global systemd overrides:
   file.managed:
+    - name: /etc/systemd/system.conf.d/global-overrides.conf
     - mode: 0644
     - makedirs: True
     - contents: |
         [Manager]
         DefaultLimitCORE=infinity
         DefaultLimitNOFILE=131072
+  module.run:
+    - name: service.systemctl_reload
+    - onchanges:
+      - file: global systemd overrides
 
 kernel.core_pattern:
   sysctl.present:
