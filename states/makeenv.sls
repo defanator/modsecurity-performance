@@ -11,6 +11,7 @@ Dependency packages:
       - g++
       - gcc
       - git
+      - htop
       - libcurl4-openssl-dev
       - libgeoip-dev
       - libpcre3-dev
