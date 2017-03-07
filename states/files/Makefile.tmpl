@@ -65,4 +65,4 @@ nginx-static:	ModSecurity ModSecurity-nginx nginx-$(NGINXVER)
 	@cp -p nginx-$(NGINXVER)/nginx-static* ./
 
 clean:
-	@rm -rf ModSecurity/ ModSecurity-nginx/ nginx-$(NGINXVER).tar.gz nginx-$(NGINXVER)/ lms ngxmod
+	@rm -rf ModSecurity/ ModSecurity-nginx/ nginx-$(NGINXVER).tar.gz nginx-$(NGINXVER)/ lms ngxmod ngx_http_modsecurity_module*.so nginx-static*
