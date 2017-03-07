@@ -50,5 +50,19 @@ ngxmod:	ModSecurity ModSecurity-nginx nginx-$(NGINXVER)
 	@cp -p nginx-$(NGINXVER)/*.so ./
 	@touch $@
 
+nginx-static:	ModSecurity ModSecurity-nginx nginx-$(NGINXVER)
+	@cd nginx-$(NGINXVER) && \
+	export MODSECURITY_INC=/usr/include && \
+	export MODSECURITY_LIB=/usr/lib && \
+	export NGX_IGNORE_RPATH=YES && \
+	./configure --with-debug --with-cc-opt="-DMODSECURITY_DDEBUG=1 -DMODSECURITY_SANITY_CHECKS=1" --add-module=../ModSecurity-nginx && \
+	make && \
+	cp -p objs/nginx nginx-static.debug && \
+	make clean && \
+	./configure --add-module=../ModSecurity-nginx && \
+	make && \
+	cp -p objs/nginx nginx-static
+	@cp -p nginx-$(NGINXVER)/nginx-static* ./
+
 clean:
 	@rm -rf ModSecurity/ ModSecurity-nginx/ nginx-$(NGINXVER).tar.gz nginx-$(NGINXVER)/ lms ngxmod
