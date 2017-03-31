@@ -30,3 +30,13 @@ NGINX Package:
 /etc/nginx/modsec/modsecurity.conf:
   file.managed:
     - source: salt://files/etc/nginx/modsec/modsecurity.conf
+
+NGINX service:
+  service.running:
+    - name: nginx
+    - enable: True
+    - reload: True
+    - watch:
+      - file: /etc/nginx/nginx.conf
+      - file: /etc/nginx/modsec/main.conf
+      - file: /etc/nginx/modsec/modsecurity.conf
