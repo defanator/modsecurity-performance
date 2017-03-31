@@ -6,3 +6,4 @@ base:
     - build
     - owasp-crs
     - nginx
+    - upload-app
