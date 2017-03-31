@@ -4,6 +4,7 @@ After=syslog.target
 
 [Service]
 ExecStart=/usr/bin/uwsgi_python --ini /data/upload-app/upload-app.ini
+ExecReload=/bin/kill -HUP $MAINPID
 RuntimeDirectory=uwsgi
 Restart=always
 KillSignal=SIGTERM

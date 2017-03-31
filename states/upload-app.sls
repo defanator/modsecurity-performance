@@ -14,8 +14,6 @@ include:
     - user: nginx
     - group: nginx
     - mode: 644
-    - watch_in:
-      - upload-app
 
 /data/upload-app/upload-app.py:
   file.managed:
@@ -38,3 +36,6 @@ upload-app systemd service:
 upload-app:
   service.running:
     - enable: True
+    - reload: True
+    - watch:
+      - file: /data/upload-app/upload-app.ini
