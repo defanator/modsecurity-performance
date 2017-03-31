@@ -23,6 +23,7 @@ Dependency packages:
       - man
       - ministat
       - pkg-config
+      - uwsgi-plugin-python
       - wrk
       - zlib1g-dev
 
