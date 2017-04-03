@@ -21,6 +21,7 @@ Dependency packages:
       - libyajl-dev
       - make
       - man
+      - mercurial
       - ministat
       - pkg-config
       - uwsgi-plugin-python
