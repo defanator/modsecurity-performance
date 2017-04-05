@@ -19,6 +19,13 @@ NGINX Package:
     - require:
       - pkgrepo: NGINX Package Repository
 
+NGINX Debug Symbols:
+  pkg.installed:
+    - name: nginx-dbg
+    - version: {{ nginxver }}-1~{{ release }}
+    - require:
+      - pkgrepo: NGINX Package Repository
+
 /etc/nginx/nginx.conf:
   file.managed:
     - source: salt://files/etc/nginx/nginx.conf
