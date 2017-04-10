@@ -16,6 +16,7 @@ Dependency packages:
       - libcurl4-openssl-dev
       - libgeoip-dev
       - libpcre3-dev
+      - libssl-dev
       - libtool
       - libxml2-dev
       - libyajl-dev
