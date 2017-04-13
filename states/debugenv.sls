@@ -1,4 +1,5 @@
 {% set release = salt['grains.get']('lsb_distrib_codename', 'yakkety') %}
+{% set kernelrelease = salt['grains.get']('kernelrelease') %}
 
 {% for repo_path in ['', '-updates', '-proposed'] %}
 Ubuntu Debug Repository{{ repo_path }}:
@@ -43,6 +44,8 @@ Debug packages:
       - libtasn1-6-dbgsym
       - libxml2-dbg
       - libyajl2-dbg
+      - linux-tools-{{ kernelrelease }}
+      - systemtap
       - valgrind
       - zlib1g-dbg
     - require:
