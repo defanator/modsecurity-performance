@@ -1,5 +1,6 @@
 {% set release = salt['grains.get']('lsb_distrib_codename', 'yakkety') %}
 {% set kernelrelease = salt['grains.get']('kernelrelease') %}
+{% set virtual = salt['grains.get']('virtual') %}
 
 {% for repo_path in ['', '-updates', '-proposed'] %}
 Ubuntu Debug Repository{{ repo_path }}:
@@ -59,7 +60,11 @@ Debug packages:
   group.present:
     - name: {{ group }}
     - addusers:
+{% if virtual == 'VirtualBox' %}
       - ubuntu
+{% elif virtual == 'qemu' %}
+      - vagrant
+{% endif %}
       - test
     - require:
       - Debug packages
