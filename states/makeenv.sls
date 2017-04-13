@@ -41,3 +41,15 @@ Makefile:
       connectorrev: {{ salt['pillar.get']('versions:connector') }}
     - require:
       - Test user
+
+/etc/motd:
+  file.managed:
+    - contents: |
+        In order to extend this environment with a set of debug utilities,
+        such as gdb, valgrind, systemtap, perf and others, please run:
+
+            sudo salt-call state.apply debugenv
+         
+        Please note that this action will also install debug symbols
+        for the current running kernel, it may take some time.
+         
