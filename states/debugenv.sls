@@ -44,6 +44,7 @@ Debug packages:
       - libtasn1-6-dbgsym
       - libxml2-dbg
       - libyajl2-dbg
+      - linux-image-{{ kernelrelease }}-dbgsym
       - linux-tools-{{ kernelrelease }}
       - systemtap
       - valgrind
@@ -52,3 +53,21 @@ Debug packages:
       - Ubuntu Debug Repository
       - Ubuntu Debug Repository-proposed
       - Ubuntu Debug Repository-updates
+
+{% for group in ['stapusr', 'stapsys', 'stapdev'] %}
+{{ group }} membership:
+  group.present:
+    - name: {{ group }}
+    - addusers:
+      - ubuntu
+      - test
+    - require:
+      - Debug packages
+{% endfor %}
+
+Fix permissions for systemtap:
+  cmd.run:
+    - name: chmod 644 /boot/System.map-{{ kernelrelease }}
+    - unless: test `stat -c '%a' /boot/System.map-{{ kernelrelease }}` = 644
+    - require:
+      - Debug packages
