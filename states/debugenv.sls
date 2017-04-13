@@ -43,6 +43,7 @@ Debug packages:
       - libtasn1-6-dbgsym
       - libxml2-dbg
       - libyajl2-dbg
+      - valgrind
       - zlib1g-dbg
     - require:
       - Ubuntu Debug Repository
