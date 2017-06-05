@@ -39,7 +39,6 @@ Debug packages:
       - librtmp1-dbgsym
       - libsasl2-2-dbgsym
       - libssl1.0.0-dbg
-      - libssl1.0.0-dbgsym
       - libstdc++6-6-dbg
       - libsqlite3-0-dbg
       - libtasn1-6-dbgsym
