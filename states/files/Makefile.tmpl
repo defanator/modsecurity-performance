@@ -3,11 +3,12 @@
 NGINXVER={{ nginxver }}
 LMSREV={{ lmsrev }}
 CONNECTORREV={{ connectorrev }}
+WRKREV={{ wrkrev }}
 
 default:
 	@echo "valid targets: all, lms, ngxmod"
 
-all: lms ngxmod
+all: lms ngxmod wrk
 
 ModSecurity:
 	@git clone https://github.com/SpiderLabs/ModSecurity.git && \
@@ -63,6 +64,12 @@ nginx-static:	ModSecurity ModSecurity-nginx nginx-$(NGINXVER)
 	make && \
 	cp -p objs/nginx nginx-static
 	@cp -p nginx-$(NGINXVER)/nginx-static* ./
+
+wrk:
+	@git clone https://github.com/wg/wrk.git && \
+	cd wrk && \
+	git checkout $(WRKREV) && \
+	make
 
 nginx-tests:
 	@hg clone http://hg.nginx.org/nginx-tests

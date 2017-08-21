@@ -26,7 +26,6 @@ Dependency packages:
       - ministat
       - pkg-config
       - uwsgi-plugin-python
-      - wrk
       - zlib1g-dev
 
 Makefile:
@@ -39,6 +38,7 @@ Makefile:
       nginxver: {{ salt['pillar.get']('versions:nginx') }}
       lmsrev: {{ salt['pillar.get']('versions:libmodsecurity') }}
       connectorrev: {{ salt['pillar.get']('versions:connector') }}
+      wrkrev: {{ salt['pillar.get']('versions:wrk') }}
     - require:
       - Test user
 
