@@ -2,6 +2,12 @@
 {% set kernelrelease = salt['grains.get']('kernelrelease') %}
 {% set virtual = salt['grains.get']('virtual') %}
 
+{% if virtual == 'VirtualBox' and grains['os'] == 'Ubuntu' %}
+{% set baseuser = 'ubuntu' %}
+{% else %}
+{% set baseuser = 'vagrant' %}
+{% endif %}
+
 {% if grains['os'] == 'Ubuntu' %}
 {% for repo_path in ['', '-updates', '-proposed'] %}
 Ubuntu Debug Repository{{ repo_path }}:
@@ -64,11 +70,7 @@ Debug packages:
   group.present:
     - name: {{ group }}
     - addusers:
-{% if virtual == 'VirtualBox' %}
-      - ubuntu
-{% elif virtual in ('qemu', 'kvm') %}
-      - vagrant
-{% endif %}
+      - {{ baseuser }}
       - test
     - require:
       - Debug packages
