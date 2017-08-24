@@ -32,7 +32,6 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provider :libvirt do |libvirt, override|
-    override.vm.box = "wholebits/ubuntu17.04-64"
     libvirt.cpus = cpus
     libvirt.memory = mem
     libvirt.driver = "kvm"
@@ -45,5 +44,15 @@ Vagrant.configure("2") do |config|
     salt.bootstrap_options = "-n -X"
     salt.masterless        = true
     salt.run_highstate     = true
+  end
+
+  config.vm.define "default", primary: true do |default|
+    default.vm.provider :libvirt do |libvirt, override|
+      override.vm.box = "wholebits/ubuntu17.04-64"
+    end
+  end
+
+  config.vm.define "debian", autostart: false do |debian|
+    debian.vm.box = "debian/jessie64"
   end
 end
