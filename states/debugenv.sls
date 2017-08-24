@@ -2,6 +2,7 @@
 {% set kernelrelease = salt['grains.get']('kernelrelease') %}
 {% set virtual = salt['grains.get']('virtual') %}
 
+{% if grains['os'] == 'Ubuntu' %}
 {% for repo_path in ['', '-updates', '-proposed'] %}
 Ubuntu Debug Repository{{ repo_path }}:
   pkgrepo.managed:
@@ -13,12 +14,14 @@ Ubuntu Debug Repository{{ repo_path }}:
     - keyid: '0xC8CAB6595FDFF622'
     - keyserver: hkps.pool.sks-keyservers.net
 {% endfor %}
+{% endif %}
 
 Debug packages:
   pkg.latest:
     - pkgs:
       - gdb
       - libc6-dbg
+{% if grains['os'] == 'Ubuntu' %}
       - libc6-dbgsym
       - libcomerr2-dbgsym
       - libcurl4-dbg
@@ -46,13 +49,16 @@ Debug packages:
       - libyajl2-dbg
       - linux-image-{{ kernelrelease }}-dbgsym
       - linux-tools-{{ kernelrelease }}
+      - zlib1g-dbg
+{% endif %}
       - systemtap
       - valgrind
-      - zlib1g-dbg
+{% if grains['os'] == 'Ubuntu' %}
     - require:
       - Ubuntu Debug Repository
       - Ubuntu Debug Repository-proposed
       - Ubuntu Debug Repository-updates
+{% endif %}
 
 {% for group in ['stapusr', 'stapsys', 'stapdev'] %}
 {{ group }} membership:
@@ -61,7 +67,7 @@ Debug packages:
     - addusers:
 {% if virtual == 'VirtualBox' %}
       - ubuntu
-{% elif virtual == 'qemu' %}
+{% elif virtual in ('qemu', 'kvm') %}
       - vagrant
 {% endif %}
       - test
