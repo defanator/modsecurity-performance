@@ -19,11 +19,11 @@ Vagrant.configure("2") do |config|
 
   # use NFS for performant file sharing
   config.vm.network :private_network, ip: '192.168.50.50'
-  config.vm.synced_folder ".", "/vagrant", type: "nfs"
+  config.vm.synced_folder ".", "/vagrant", type: "nfs", nfs_version: 3
 
   # mount states and pillars to the appropriate locations
-  config.vm.synced_folder "states/", "/srv/salt/", type: "nfs"
-  config.vm.synced_folder "pillars/", "/srv/pillar/", type: "nfs"
+  config.vm.synced_folder "states/", "/srv/salt/", type: "nfs", nfs_version: 3
+  config.vm.synced_folder "pillars/", "/srv/pillar/", type: "nfs", nfs_version: 3
 
   # provider specific settings
   config.vm.provider "virtualbox" do |vbox, override|
