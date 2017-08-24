@@ -28,7 +28,6 @@ Debug packages:
       - libffi6-dbg
       - libgeoip1-dbgsym
       - libgmp10-dbgsym
-      - libgnutls30-dbgsym
       - libgssapi-krb5-2-dbgsym
       - libgssapi3-heimdal-dbgsym
       - libhogweed4-dbgsym
