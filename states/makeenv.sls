@@ -24,6 +24,7 @@ Dependency packages:
       - man
       - mercurial
       - ministat
+      - net-tools
       - pkg-config
       - uwsgi-plugin-python
       - zlib1g-dev
