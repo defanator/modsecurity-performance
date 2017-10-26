@@ -52,7 +52,11 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define "debian", autostart: false do |debian|
-    debian.vm.box = "debian/jessie64"
+  config.vm.define "debian8", autostart: false do |debian8|
+    debian8.vm.box = "debian/jessie64"
+  end
+
+  config.vm.define "debian9", autostart: false do |debian9|
+    debian9.vm.box = "debian/stretch64"
   end
 end
