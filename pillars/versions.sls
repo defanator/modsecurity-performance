@@ -1,5 +1,5 @@
 versions:
-  - nginx: 1.13.4
+  - nginx: 1.13.6
   - libmodsecurity: v3/master
   - connector: master
   - owasp-crs: v3.0.2
