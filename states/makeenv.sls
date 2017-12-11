@@ -43,6 +43,13 @@ Makefile:
     - require:
       - Test user
 
+prove configuration for test:
+  file.managed:
+    - user: test
+    - name: /home/test/.proverc
+    - contents: |
+        -j16
+
 /etc/motd:
   file.managed:
     - contents: |
