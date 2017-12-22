@@ -5,8 +5,69 @@ LMSREV={{ lmsrev }}
 CONNECTORREV={{ connectorrev }}
 WRKREV={{ wrkrev }}
 
+NPROC=$(shell getconf _NPROCESSORS_ONLN)
+
+MAKEJFLAG=
+ifneq ($(NPROC),1)
+MAKEJFLAG=-j$(NPROC)
+endif
+
+CC_OPT_ADD=
+LD_OPT_ADD=
+ifdef ASAN
+CC_OPT_ADD= -fsanitize=address
+LD_OPT_ADD= -fsanitize=address
+endif
+
+NGINX_CC_OPT=-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC
+NGINX_CC_OPT_DEBUG=$(NGINX_CC_OPT) -DMODSECURITY_DDEBUG=1 -DMODSECURITY_SANITY_CHECKS=1
+NGINX_LD_OPT=-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie
+NGINX_LD_OPT_DEBUG=$(NGINX_LD_OPT)
+
+NGINX_CONFIGURE_ARGS=\
+	--prefix=/etc/nginx \
+	--sbin-path=/usr/sbin/nginx \
+	--modules-path=/usr/lib/nginx/modules \
+	--conf-path=/etc/nginx/nginx.conf \
+	--error-log-path=/var/log/nginx/error.log \
+	--http-log-path=/var/log/nginx/access.log \
+	--pid-path=/var/run/nginx.pid \
+	--lock-path=/var/run/nginx.lock \
+	--http-client-body-temp-path=/var/cache/nginx/client_temp \
+	--http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+	--http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+	--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+	--http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+	--user=nginx \
+	--group=nginx \
+	--with-compat \
+	--with-file-aio \
+	--with-threads \
+	--with-http_addition_module \
+	--with-http_auth_request_module \
+	--with-http_dav_module \
+	--with-http_flv_module \
+	--with-http_gunzip_module \
+	--with-http_gzip_static_module \
+	--with-http_mp4_module \
+	--with-http_random_index_module \
+	--with-http_realip_module \
+	--with-http_secure_link_module \
+	--with-http_slice_module \
+	--with-http_ssl_module \
+	--with-http_stub_status_module \
+	--with-http_sub_module \
+	--with-http_v2_module \
+	--with-mail \
+	--with-mail_ssl_module \
+	--with-stream \
+	--with-stream_realip_module \
+	--with-stream_ssl_module \
+	--with-stream_ssl_preread_module \
+	--add-module=../ModSecurity-nginx
+
 default:
-	@echo "valid targets: all, lms, ngxmod"
+	@echo "valid targets: all, lms, ngxmod, nginx-static"
 
 all: lms ngxmod wrk
 
@@ -26,7 +87,7 @@ lms:	ModSecurity
 	@cd ModSecurity && \
 	./build.sh && \
 	./configure --prefix=/usr --without-lmdb && \
-	make -j`getconf _NPROCESSORS_ONLN` && \
+	make $(MAKEJFLAG) && \
 	sudo make install
 	@touch $@
 
@@ -56,12 +117,12 @@ nginx-static:	ModSecurity ModSecurity-nginx nginx-$(NGINXVER)
 	export MODSECURITY_INC=/usr/include && \
 	export MODSECURITY_LIB=/usr/lib && \
 	export NGX_IGNORE_RPATH=YES && \
-	./configure --with-debug --with-cc-opt="-DMODSECURITY_DDEBUG=1 -DMODSECURITY_SANITY_CHECKS=1" --add-module=../ModSecurity-nginx && \
-	make && \
+	./configure $(NGINX_CONFIGURE_ARGS) --with-cc-opt='$(NGINX_CC_OPT_DEBUG) $(CC_OPT_ADD)' --with-ld-opt='$(NGINX_LD_OPT_DEBUG) $(LD_OPT_ADD)' --with-debug && \
+	make $(MAKEJFLAG) && \
 	cp -p objs/nginx nginx-static.debug && \
 	make clean && \
-	./configure --add-module=../ModSecurity-nginx && \
-	make && \
+	./configure $(NGINX_CONFIGURE_ARGS) --with-cc-opt='$(NGINX_CC_OPT) $(CC_OPT_ADD)' --with-ld-opt='$(NGINX_LD_OPT) $(LD_OPT_ADD)' && \
+	make $(MAKEJFLAG) && \
 	cp -p objs/nginx nginx-static
 	@cp -p nginx-$(NGINXVER)/nginx-static* ./
 
