@@ -6,6 +6,7 @@ perfrun.sh:
   file.managed:
     - user: test
     - name: /home/test/perfrun.sh
+    - mode: 755
     - source: salt://files/perfrun.sh
     - require:
       - Test user
@@ -14,6 +15,7 @@ batchbench.sh:
   file.managed:
     - user: test
     - name: /home/test/batchbench.sh
+    - mode: 755
     - source: salt://files/batchbench.sh
     - require:
       - Test user
@@ -22,6 +24,7 @@ batchperfrun.sh:
   file.managed:
     - user: test
     - name: /home/test/batchperfrun.sh
+    - mode: 755
     - source: salt://files/batchperfrun.sh
     - require:
       - Test user
