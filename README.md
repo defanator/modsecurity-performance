@@ -48,9 +48,9 @@ i5 2.9GHz) provisioning takes about 8.5 minutes
 4. Run a set of performance tests and get a summary:
 
     ```
-    cd /srv/salt/files
-    ./perfrun.sh run
-    ./perfrun.sh stats
+    vagrant@vagrant:~$ sudo su -l test
+    test@vagrant:~$ ./perfrun.sh run
+    test@vagrant:~$ ./perfrun.sh stats
     ```
 
 ## What is being tested
