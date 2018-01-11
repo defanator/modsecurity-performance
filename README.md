@@ -65,7 +65,7 @@ processing
 turned on, but without any actual rules
 
 * `/modsec-full/` - proxies all requests to local server with libmodsecurity
-turned on and full OWASP CRS v3.0.0 loaded
+turned on and full OWASP CRS v3 loaded
 
 Please refer to the [nginx.conf](https://github.com/defanator/modsecurity-performance/blob/master/states/files/etc/nginx/nginx.conf)
 for the details.
