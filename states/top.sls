@@ -7,3 +7,4 @@ base:
     - owasp-crs
     - nginx
     - upload-app
+    - benchenv
