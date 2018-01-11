@@ -75,7 +75,6 @@ for the details.
 If you want to run benchmark for a particular subset of libmodsecurity
 changesets, this can be done in a following way:
 
-    ```
     test@vagrant:~$ cat batchbench.revs 
     10c4f9b1b2476f71159fa5569d9238001760404c
     9e9db08b874fe7c1200aafd95fe6bccd41148ae5
@@ -95,7 +94,6 @@ changesets, this can be done in a following way:
     28.26,1528.49,17946.33,2988c5bb07c4a5ad434855413f20fec11008c818,2017-10-06 20:35:09 +0000,CHANGES: add info about #1536
     28.64,1495.39,17951.00,63bef3d142b2ae25ed42d344c40729fb5f3d552e,2017-10-03 20:50:02 +0000,Support to JSON stuff on serial logging
     633.89,680.80,17829.33,d9d702f401c870bf399d8cd5bc4ae212c7d52195,2018-01-03 09:49:20 -0300,Fix the debuglogs for the regression tests
-    ```
 
 Build logs and raw wrk output will be in the `batch/` directory.
 Please note that `batchbench.sh` uses separate script for launching wrk -
