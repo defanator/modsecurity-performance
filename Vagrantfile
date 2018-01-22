@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     mem = [cpus * 512, `awk '/MemTotal/ {print $2}' /proc/meminfo`.to_i / 1024 / 2].min
   end
 
-  config.vm.box = "ubuntu/zesty64"
+  config.vm.box = "generic/ubuntu1604"
   config.vm.hostname = "vagrant"
 
   # use NFS for performant file sharing
@@ -47,9 +47,6 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "default", primary: true do |default|
-    default.vm.provider :libvirt do |libvirt, override|
-      override.vm.box = "wholebits/ubuntu17.04-64"
-    end
   end
 
   config.vm.define "debian8", autostart: false do |debian8|
