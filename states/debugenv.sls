@@ -1,12 +1,7 @@
 {% set release = salt['grains.get']('lsb_distrib_codename', 'yakkety') %}
 {% set kernelrelease = salt['grains.get']('kernelrelease') %}
 {% set virtual = salt['grains.get']('virtual') %}
-
-{% if virtual == 'VirtualBox' and grains['os'] == 'Ubuntu' %}
-{% set baseuser = 'ubuntu' %}
-{% else %}
 {% set baseuser = 'vagrant' %}
-{% endif %}
 
 {% if grains['os'] == 'Ubuntu' %}
 {% for repo_path in ['', '-updates', '-proposed'] %}
