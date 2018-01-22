@@ -11,7 +11,7 @@ NGINX Package Repository:
     - clean_file: True
     - gpgcheck: 1
     - keyid: '0xABF5BD827BD9BF62'
-    - keyserver: hkps.pool.sks-keyservers.net
+    - keyserver: ha.pool.sks-keyservers.net
 
 NGINX Package:
   pkg.installed:
