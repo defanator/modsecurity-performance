@@ -2,6 +2,9 @@
 {% set release = salt['grains.get']('lsb_distrib_codename', 'yakkety') %}
 {% set nginxver = salt['pillar.get']('versions:nginx') %}
 
+include:
+  - owasp-crs
+
 NGINX Package Repository:
   pkgrepo.managed:
     - humanname: NGINX Package Repository
@@ -48,3 +51,5 @@ NGINX service:
       - file: /etc/nginx/nginx.conf
       - file: /etc/nginx/modsec/main.conf
       - file: /etc/nginx/modsec/modsecurity.conf
+    - require:
+      - OWASP CRS patch from PR 995 apply
