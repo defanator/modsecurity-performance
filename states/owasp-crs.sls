@@ -5,9 +5,9 @@ OWASP CRS:
     - rev: {{ salt['pillar.get']('versions:owasp-crs') }}
 
 Default crs-setup.conf:
-  file.symlink:
-    - name: /etc/nginx/modsec/owasp-crs/crs-setup.conf
-    - target: /etc/nginx/modsec/owasp-crs/crs-setup.conf.example
+  cmd.run:
+    - name: cd /etc/nginx/modsec/owasp-crs/ && cat crs-setup.conf.example | sed -e 's/^SecCollectionTimeout/#SecCollectionTimeout/g' > crs-setup.conf
+    - unless: test -e /etc/nginx/modsec/owasp-crs/crs-setup.conf
     - require:
       - OWASP CRS
 
