@@ -21,7 +21,7 @@ function run {
             echo "[${i}/${iterations}] $location ..."
             sudo service nginx start
             sleep 1
-            taskset -c 0-7 wrk -t${threads} -c${connections} -d${duration} -s ${HOME}/report.lua \
+            wrk -t${threads} -c${connections} -d${duration} -s ${HOME}/report.lua \
                 -H "Host: www.example.com" \
                 -H "User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5 (.NET CLR 3.5.30729)" \
                 -H "Accept: text/html,application/xhtml+xml,application/xml; q=0.9,*/*;q=0.8" \

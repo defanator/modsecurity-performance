@@ -4,10 +4,10 @@
 set -e
 
 locations="/modsec-full"
-iterations=3
-duration=30s
-threads=6
-connections=600
+iterations=10
+duration=10s
+threads=1
+connections=50
 
 function usage {
     echo "usage: `basename $0` run|stats rev" >&2
@@ -26,7 +26,7 @@ function run {
             echo "[${i}/${iterations}] $location ..."
             sudo service nginx start
             sleep 1
-            taskset -c 0-5 wrk \
+            wrk \
 		-t${threads} -c${connections} -d${duration} -s ${HOME}/report.lua \
 		-H "Host: www.example.com" \
 		-H "User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.5) Gecko/20091102 Firefox/3.5.5 (.NET CLR 3.5.30729)" \
