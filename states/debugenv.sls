@@ -1,4 +1,4 @@
-{% set release = salt['grains.get']('lsb_distrib_codename', 'yakkety') %}
+{% set release = salt['grains.get']('lsb_distrib_codename', 'xenial') %}
 {% set kernelrelease = salt['grains.get']('kernelrelease') %}
 {% set virtual = salt['grains.get']('virtual') %}
 {% set baseuser = 'vagrant' %}

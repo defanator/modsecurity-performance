@@ -1,5 +1,5 @@
 {% set os = salt['grains.get']('os').lower() %}
-{% set release = salt['grains.get']('lsb_distrib_codename', 'yakkety') %}
+{% set release = salt['grains.get']('lsb_distrib_codename', 'xenial') %}
 {% set nginxver = salt['pillar.get']('versions:nginx') %}
 
 NGINX Package Repository:
