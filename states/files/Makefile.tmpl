@@ -17,6 +17,7 @@ LD_OPT_ADD=
 ifdef ASAN
 CC_OPT_ADD= -fsanitize=address
 LD_OPT_ADD= -fsanitize=address
+LMS_ASAN_ENV=	CFLAGS=-fsanitize=address CXXFLAGS=-fsanitize=address LDFLAGS=-fsanitize=address
 endif
 
 NGINX_CC_OPT=-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC
@@ -86,7 +87,7 @@ ModSecurity-nginx:
 lms:	ModSecurity
 	@cd ModSecurity && \
 	./build.sh && \
-	./configure --prefix=/usr --without-lmdb && \
+	$(LMS_ASAN_ENV) ./configure --prefix=/usr --without-lmdb && \
 	make $(MAKEJFLAG) && \
 	sudo make install
 	@touch $@
