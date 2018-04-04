@@ -53,3 +53,7 @@ report.lua:
         end
     - require:
       - Test user
+
+nikto package:
+  pkg.latest:
+    - name: nikto

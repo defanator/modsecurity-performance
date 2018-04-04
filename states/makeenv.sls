@@ -61,3 +61,8 @@ prove configuration for test:
         Please note that this action will also install debug symbols
         for the current running kernel, it may take some time.
          
+        Nikto web server security scanner tool is available for testing, e.g.:
+
+            nikto -host localhost -root /modsec-off/
+            nikto -host localhost -root /modsec-full/
+         
