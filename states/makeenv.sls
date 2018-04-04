@@ -21,7 +21,7 @@ Dependency packages:
       - libxml2-dev
       - libyajl-dev
       - make
-      - man
+      - man-db
       - mercurial
       - ministat
       - net-tools
