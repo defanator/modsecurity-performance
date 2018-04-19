@@ -25,7 +25,7 @@ Debug packages:
 {% if grains['os'] == 'Ubuntu' %}
       - libc6-dbgsym
       - libcomerr2-dbg
-      - libcurl4-dbg
+      - libcurl3-dbg
       - libffi6-dbg
       - geoip-dbg
       - libgmp10-dbgsym
