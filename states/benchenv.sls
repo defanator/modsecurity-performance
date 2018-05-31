@@ -54,6 +54,8 @@ report.lua:
     - require:
       - Test user
 
+{% if grains['os'] == 'Ubuntu' %}
 nikto package:
   pkg.latest:
     - name: nikto
+{% endif %}
