@@ -58,4 +58,29 @@ report.lua:
 nikto package:
   pkg.latest:
     - name: nikto
+
+run-nikto.sh:
+  file.managed:
+    - user: vagrant
+    - name: /home/vagrant/run-nikto.sh
+    - contents: |
+        #!/bin/sh
+        for i in `seq 1 100`; do
+            /bin/sh -c "while [ :: ]; do nikto -host host${i}; done" &
+        done
+{% else %}
+nikto sources:
+  git.latest:
+    - name: https://github.com/sullo/nikto.git
+    - target: /home/vagrant/nikto
+
+run-nikto.sh:
+  file.managed:
+    - user: vagrant
+    - name: /home/vagrant/run-nikto.sh
+    - contents: |
+        #!/bin/sh
+        for i in `seq 1 100`; do
+            /bin/sh -c "while [ :: ]; do /home/vagrant/nikto/program/nikto.pl -host host${i}; done" &
+        done
 {% endif %}

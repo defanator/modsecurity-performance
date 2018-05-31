@@ -39,6 +39,30 @@ NGINX Debug Symbols:
   file.managed:
     - source: salt://files/etc/nginx/modsec/modsecurity.conf
 
+/root/generate-servers.sh:
+  file.managed:
+    - source: salt://files/generate-servers.sh
+    - mode: 755
+
+/root/generate-hosts.sh:
+  file.managed:
+    - source: salt://files/generate-hosts.sh
+    - mode: 755
+
+Virtual servers conf:
+  cmd.run:
+    - name: /root/generate-servers.sh >/etc/nginx/conf.d/servers.conf
+    - unless: test -e /etc/nginx/conf.d/servers.conf
+    - require:
+      - /root/generate-servers.sh
+
+Update /etc/hosts:
+  cmd.run:
+    - name: /root/generate-hosts.sh >>/etc/hosts
+    - unless: grep -q host100 /etc/hosts
+    - require:
+      - /root/generate-hosts.sh
+
 NGINX service:
   service.running:
     - name: nginx
@@ -48,3 +72,4 @@ NGINX service:
       - file: /etc/nginx/nginx.conf
       - file: /etc/nginx/modsec/main.conf
       - file: /etc/nginx/modsec/modsecurity.conf
+      - cmd: Virtual servers conf
