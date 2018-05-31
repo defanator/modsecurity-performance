@@ -62,6 +62,7 @@ nikto package:
 run-nikto.sh:
   file.managed:
     - user: vagrant
+    - mode: 755
     - name: /home/vagrant/run-nikto.sh
     - contents: |
         #!/bin/sh
@@ -77,6 +78,7 @@ nikto sources:
 run-nikto.sh:
   file.managed:
     - user: vagrant
+    - mode: 755
     - name: /home/vagrant/run-nikto.sh
     - contents: |
         #!/bin/sh
