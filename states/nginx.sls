@@ -2,6 +2,9 @@
 {% set release = salt['grains.get']('lsb_distrib_codename', 'xenial') %}
 {% set nginxver = salt['pillar.get']('versions:nginx') %}
 
+include:
+  - build
+
 NGINX Package Repository:
   pkgrepo.managed:
     - humanname: NGINX Package Repository
@@ -36,8 +39,18 @@ NGINX Debug Symbols:
     - source: salt://files/etc/nginx/modsec/main.conf
 
 /etc/nginx/modsec/modsecurity.conf:
-  file.managed:
-    - source: salt://files/etc/nginx/modsec/modsecurity.conf
+  cmd.run:
+    - name: cat /home/test/ModSecurity/modsecurity.conf-recommended | grep -v "^#" | strings | sed -e 's#^SecRuleEngine.*#SecRuleEngine On#' > /etc/nginx/modsec/modsecurity.conf
+    - unless: test -e /etc/nginx/modsec/modsecurity.conf
+    - require:
+      - Build all
+
+/etc/nginx/modsec/unicode.mapping:
+  file.copy:
+    - name: /etc/nginx/modsec/unicode.mapping
+    - source: /home/test/ModSecurity/unicode.mapping
+    - require:
+      - Build all
 
 NGINX service:
   service.running:
@@ -45,6 +58,7 @@ NGINX service:
     - enable: True
     - reload: True
     - watch:
-      - file: /etc/nginx/nginx.conf
-      - file: /etc/nginx/modsec/main.conf
-      - file: /etc/nginx/modsec/modsecurity.conf
+      - /etc/nginx/nginx.conf
+      - /etc/nginx/modsec/main.conf
+      - /etc/nginx/modsec/modsecurity.conf
+      - /etc/nginx/modsec/unicode.mapping
