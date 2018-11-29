@@ -103,11 +103,16 @@ ngxmod:	ModSecurity ModSecurity-nginx nginx-$(NGINXVER)
 	export MODSECURITY_INC=/usr/include && \
 	export MODSECURITY_LIB=/usr/lib && \
 	export NGX_IGNORE_RPATH=YES && \
-	./configure --with-compat --with-debug --with-cc-opt="-DMODSECURITY_DDEBUG=1 -DMODSECURITY_SANITY_CHECKS=1" --add-dynamic-module=../ModSecurity-nginx && \
+	./configure --with-compat --add-dynamic-module=../ModSecurity-nginx \
+			--with-cc-opt='$(NGINX_CC_OPT_DEBUG) $(CC_OPT_ADD)' \
+			--with-ld-opt='$(NGINX_LD_OPT_DEBUG) $(LD_OPT_ADD)' \
+			--with-debug && \
 	make modules && \
 	cp -p objs/ngx_http_modsecurity_module.so ngx_http_modsecurity_module-debug.so && \
 	make clean && \
-	./configure --with-compat --add-dynamic-module=../ModSecurity-nginx && \
+	./configure --with-compat --add-dynamic-module=../ModSecurity-nginx \
+			--with-cc-opt='$(NGINX_CC_OPT) $(CC_OPT_ADD)' \
+			--with-ld-opt='$(NGINX_LD_OPT) $(LD_OPT_ADD)' && \
 	make modules && \
 	cp -p objs/ngx_http_modsecurity_module.so ./
 	@cp -p nginx-$(NGINXVER)/*.so ./
