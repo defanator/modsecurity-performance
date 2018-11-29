@@ -1,0 +1,18 @@
+language: python
+python:
+  - '2.7'
+
+before_install:
+  - sudo apt-get update
+  - curl -L http://bootstrap.saltstack.org | sudo sh -s -- stable
+
+install:
+  - sudo ln -s `pwd`/states /srv/salt
+  - sudo ln -s `pwd`/pillars /srv/pillar
+  - sudo cp minion /etc/salt/minion
+  - sudo service salt-minion restart
+  - sudo cat /var/log/salt/*
+  - sudo salt-call grains.items --local
+
+script:
+  - sudo salt-call state.show_highstate --local
