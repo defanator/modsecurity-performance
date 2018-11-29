@@ -153,6 +153,13 @@ test:	lms ngxmod nginx-tests
 	TEST_NGINX_GLOBALS="load_module /home/test/nginx-$(NGINXVER)/ngx_http_modsecurity_module.so;" \
 	prove modsecurity*.t
 
+test-debug:	lms ngxmod nginx-tests
+	@cd nginx-tests && \
+	cp ../ModSecurity-nginx/tests/*.t ./ && \
+	TEST_NGINX_BINARY=/usr/sbin/nginx-debug \
+	TEST_NGINX_GLOBALS="load_module /home/test/nginx-$(NGINXVER)/ngx_http_modsecurity_module-debug.so;" \
+	prove modsecurity*.t
+
 test-all: lms ngxmod nginx-tests
 	@cd nginx-tests && \
 	cp ../ModSecurity-nginx/tests/*.t ./ && \
@@ -160,11 +167,25 @@ test-all: lms ngxmod nginx-tests
 	TEST_NGINX_GLOBALS="load_module /home/test/nginx-$(NGINXVER)/ngx_http_modsecurity_module.so;" \
 	prove .
 
+test-all-debug: lms ngxmod nginx-tests
+	@cd nginx-tests && \
+	cp ../ModSecurity-nginx/tests/*.t ./ && \
+	TEST_NGINX_BINARY=/usr/sbin/nginx-debug \
+	TEST_NGINX_GLOBALS="load_module /home/test/nginx-$(NGINXVER)/ngx_http_modsecurity_module-debug.so;" \
+	prove .
+
 test-all-modsec-on: lms ngxmod nginx-tests-modsec-on
 	@cd nginx-tests-modsec-on && \
 	cp ../ModSecurity-nginx/tests/*.t ./ && \
 	TEST_NGINX_BINARY=/usr/sbin/nginx \
 	TEST_NGINX_GLOBALS="load_module /home/test/nginx-$(NGINXVER)/ngx_http_modsecurity_module.so;" \
+	prove .
+
+test-all-modsec-on-debug: lms ngxmod nginx-tests-modsec-on
+	@cd nginx-tests-modsec-on && \
+	cp ../ModSecurity-nginx/tests/*.t ./ && \
+	TEST_NGINX_BINARY=/usr/sbin/nginx-debug \
+	TEST_NGINX_GLOBALS="load_module /home/test/nginx-$(NGINXVER)/ngx_http_modsecurity_module-debug.so;" \
 	prove .
 
 clean:
