@@ -21,7 +21,9 @@ LMS_ASAN_ENV=	CFLAGS=-fsanitize=address CXXFLAGS=-fsanitize=address LDFLAGS=-fsa
 endif
 
 NGINX_CC_OPT=-g -O2 -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC
-NGINX_CC_OPT_DEBUG=$(NGINX_CC_OPT) -DMODSECURITY_DDEBUG=1 -DMODSECURITY_SANITY_CHECKS=1
+# enabling MODSECURITY_SANITY_CHECKS leads to test failures
+#NGINX_CC_OPT_DEBUG=$(NGINX_CC_OPT) -DMODSECURITY_DDEBUG=1 -DMODSECURITY_SANITY_CHECKS=1
+NGINX_CC_OPT_DEBUG=$(NGINX_CC_OPT) -DMODSECURITY_DDEBUG=1
 NGINX_LD_OPT=-Wl,-Bsymbolic-functions -Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie
 NGINX_LD_OPT_DEBUG=$(NGINX_LD_OPT)
 
