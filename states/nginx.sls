@@ -52,6 +52,19 @@ NGINX Debug Symbols:
     - require:
       - Build all
 
+/root/gencert.sh:
+  file.managed:
+    - source: salt://files/gencert.sh
+    - mode: 0755
+
+Create Self-Signed Certificate:
+  cmd.run:
+    - name: /root/gencert.sh localhost
+    - cwd: /etc/nginx
+    - unless: test -e /etc/nginx/localhost.pem
+    - require:
+      - /root/gencert.sh
+
 NGINX service:
   service.running:
     - name: nginx
@@ -62,3 +75,5 @@ NGINX service:
       - /etc/nginx/modsec/main.conf
       - /etc/nginx/modsec/modsecurity.conf
       - /etc/nginx/modsec/unicode.mapping
+    - require:
+      - Create Self-Signed Certificate
