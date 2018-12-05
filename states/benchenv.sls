@@ -1,3 +1,5 @@
+{% set release = salt['grains.get']('lsb_distrib_codename', 'xenial') %}
+
 include:
   - user
   - makeenv
@@ -54,8 +56,19 @@ report.lua:
     - require:
       - Test user
 
-{% if grains['os'] == 'Ubuntu' %}
+{% if grains['os'] == 'Debian' %}
+Debian Non-Free Repository:
+  pkgrepo.managed:
+    - humanname: non-free
+    - name: 'deb http://httpredir.debian.org/debian {{ release }} non-free'
+    - file: /etc/apt/sources.list.d/non-free.list
+    - enabled: True
+{% endif %}
+
 nikto package:
   pkg.latest:
     - name: nikto
+{% if grains['os'] == 'Debian' %}
+    - require:
+      - Debian Non-Free Repository
 {% endif %}
