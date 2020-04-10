@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     mem = [cpus * 512, `awk '/MemTotal/ {print $2}' /proc/meminfo`.to_i / 1024 / 2].min
   end
 
-  config.vm.box = "generic/ubuntu1604"
+  config.vm.box = "generic/ubuntu1804"
   config.vm.hostname = "vagrant"
 
   # use NFS for performant file sharing
@@ -49,11 +49,11 @@ Vagrant.configure("2") do |config|
   config.vm.define "default", primary: true do |default|
   end
 
-  config.vm.define "debian8", autostart: false do |debian8|
-    debian8.vm.box = "debian/jessie64"
-  end
-
   config.vm.define "debian9", autostart: false do |debian9|
     debian9.vm.box = "debian/stretch64"
+  end
+
+  config.vm.define "debian10", autostart: false do |debian9|
+    debian9.vm.box = "debian/buster64"
   end
 end
