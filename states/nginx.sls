@@ -14,7 +14,7 @@ NGINX Package Repository:
     - clean_file: True
     - gpgcheck: 1
     - keyid: '0xABF5BD827BD9BF62'
-    - keyserver: pool.sks-keyservers.net
+    - keyserver: keyserver.ubuntu.com
 
 NGINX Package:
   pkg.installed:

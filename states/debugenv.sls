@@ -13,7 +13,7 @@ Ubuntu Debug Repository{{ repo_path }}:
     - enabled: True
     - gpgcheck: 1
     - keyid: '0xC8CAB6595FDFF622'
-    - keyserver: pool.sks-keyservers.net
+    - keyserver: keyserver.ubuntu.com
 {% endfor %}
 {% endif %}
 
