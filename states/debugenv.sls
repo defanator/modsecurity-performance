@@ -23,26 +23,36 @@ Debug packages:
       - gdb
       - libc6-dbg
 {% if grains['os'] == 'Ubuntu' %}
-      - libc6-dbgsym
-      - libcomerr2-dbg
-      - libcurl3-dbg
       - libffi6-dbg
-      - geoip-dbg
       - libgmp10-dbgsym
-      - libgssapi-krb5-2-dbgsym
       - libgssapi3-heimdal-dbgsym
       - libhogweed4-dbgsym
+{% if release == 'xenial' %}
+      - libgssapi-krb5-2-dbgsym
+      - libcurl3-dbg
+      - geoip-dbg
+      - libcomerr2-dbg
+      - libc6-dbgsym
       - libicu55-dbgsym
-      - libidn11-dbgsym
       - keyutils-dbg
       - libldap-2.4-2-dbg
+      - libssl1.0.0-dbg
+      - libsqlite3-0-dbg
+{% endif %}
+{% if release == 'bionic' %}
+      - libcurl4-dbgsym
+      - libicu60-dbgsym
+      - keyutils-dbgsym
+      - libldap-2.4-2-dbgsym
+      - libssl1.1-dbgsym
+      - libsqlite3-0-dbgsym
+{% endif %}
+      - libidn11-dbgsym
       - liblzma5-dbgsym
       - libp11-kit0-dbgsym
       - libpcre3-dbg
       - librtmp1-dbgsym
-      - libssl1.0.0-dbg
       - libstdc++6-5-dbg
-      - libsqlite3-0-dbg
       - libtasn1-6-dbgsym
       - libxml2-dbg
       - libyajl2-dbg
