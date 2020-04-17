@@ -23,6 +23,14 @@ NGINX Package:
     - require:
       - pkgrepo: NGINX Package Repository
 
+NGINX empty default.conf:
+  file.managed:
+    - name: /etc/nginx/conf.d/default.conf
+    - contents: ''
+    - contents_newline: False
+    - require:
+      - NGINX Package
+
 NGINX Debug Symbols:
   pkg.installed:
     - name: nginx-dbg
