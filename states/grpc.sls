@@ -1,3 +1,6 @@
+include:
+  - nginx
+
 python3-pip package:
   pkg.latest:
     - name: python3-pip
@@ -21,3 +24,9 @@ python3-pip package:
     - group: test
     - source: salt://files/grpc_data_transmission/{{ f }}
 {%- endfor %}
+
+/etc/nginx/conf.d/grpc-proxy.conf:
+  file.managed:
+    - source: salt://files/etc/nginx/conf.d/grpc-proxy.conf
+    - watch_in:
+      - service: NGINX service
