@@ -18,12 +18,11 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "vagrant"
 
   # use NFS for performant file sharing
-  config.vm.network :private_network, ip: '192.168.50.50'
-  #config.vm.synced_folder ".", "/vagrant", type: "nfs", nfs_version: 3
+  config.vm.network :private_network, type: "dhcp"
 
   # mount states and pillars to the appropriate locations
-  config.vm.synced_folder "states/", "/srv/salt/", type: "nfs", nfs_version: 3
-  config.vm.synced_folder "pillars/", "/srv/pillar/", type: "nfs", nfs_version: 3
+  config.vm.synced_folder "states/", "/srv/salt/", type: "nfs"
+  config.vm.synced_folder "pillars/", "/srv/pillar/", type: "nfs"
 
   # provider specific settings
   config.vm.provider "virtualbox" do |vbox, override|
@@ -49,11 +48,7 @@ Vagrant.configure("2") do |config|
   config.vm.define "default", primary: true do |default|
   end
 
-  config.vm.define "debian9", autostart: false do |debian9|
-    debian9.vm.box = "debian/stretch64"
-  end
-
-  config.vm.define "debian10", autostart: false do |debian9|
-    debian9.vm.box = "debian/buster64"
+  config.vm.define "debian10", autostart: false do |debian10|
+    debian10.vm.box = "debian/buster64"
   end
 end
