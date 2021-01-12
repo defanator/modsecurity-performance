@@ -1,6 +1,6 @@
 OWASP CRS:
   git.latest:
-    - name: https://github.com/SpiderLabs/owasp-modsecurity-crs.git
+    - name: https://github.com/coreruleset/coreruleset.git
     - target: /etc/nginx/modsec/owasp-crs
     - rev: {{ salt['pillar.get']('versions:owasp-crs') }}
 
