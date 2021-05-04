@@ -19,8 +19,8 @@ Vagrant.configure("2") do |config|
   config.vm.network :private_network, type: "dhcp"
 
   # mount states and pillars to the appropriate locations
-  config.vm.synced_folder "states/", "/srv/salt/", type: "nfs"
-  config.vm.synced_folder "pillars/", "/srv/pillar/", type: "nfs"
+  config.vm.synced_folder "states/", "/srv/salt/"
+  config.vm.synced_folder "pillars/", "/srv/pillar/"
 
   # provider specific settings
   config.vm.provider "virtualbox" do |vbox, override|
