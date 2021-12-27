@@ -15,6 +15,7 @@ Dependency packages:
       - htop
       - libcurl4-openssl-dev
       - libgeoip-dev
+      - libpcre2-dev
       - libpcre3-dev
       - libssl-dev
       - libtool

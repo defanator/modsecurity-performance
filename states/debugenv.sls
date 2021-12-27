@@ -50,6 +50,7 @@ Debug packages:
       - libidn11-dbgsym
       - liblzma5-dbgsym
       - libp11-kit0-dbgsym
+      - libpcre2-dbg
       - libpcre3-dbg
       - librtmp1-dbgsym
       - libstdc++6-5-dbg
