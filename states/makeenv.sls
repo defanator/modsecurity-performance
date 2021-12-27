@@ -27,7 +27,7 @@ Dependency packages:
       - ministat
       - net-tools
       - pkg-config
-      - uwsgi-plugin-python
+      - uwsgi-plugin-python3
       - zlib1g-dev
 
 Makefile:

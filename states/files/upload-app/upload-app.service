@@ -3,7 +3,7 @@ Description=upload app
 After=syslog.target
 
 [Service]
-ExecStart=/usr/bin/uwsgi_python --ini /data/upload-app/upload-app.ini
+ExecStart=/usr/bin/uwsgi_python3 --ini /data/upload-app/upload-app.ini
 ExecReload=/bin/kill -HUP $MAINPID
 RuntimeDirectory=uwsgi
 Restart=always

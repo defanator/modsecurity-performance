@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
     mem = [cpus * 512, `awk '/MemTotal/ {print $2}' /proc/meminfo`.to_i / 1024 / 2].min
   end
 
-  config.vm.box = "generic/ubuntu1804"
+  config.vm.box = "generic/ubuntu2004"
   config.vm.hostname = "vagrant"
 
   # use NFS for performant file sharing
