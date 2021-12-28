@@ -23,14 +23,29 @@ Debug packages:
       - gdb
       - libc6-dbg
 {% if grains['os'] == 'Ubuntu' %}
+      - keyutils-dbgsym
+      - libasn1-8-heimdal-dbgsym
+      - libbrotli1-dbgsym
+      - libcom-err2-dbgsym
+      - libcrypt1-dbgsym
+#     - libcurl4-dbgsym
       - libffi7-dbgsym
+      - libgcc-s1-dbgsym
+      - libgeoip1-dbgsym
       - libgmp10-dbgsym
       - libgssapi3-heimdal-dbgsym
+      - libhcrypto4-heimdal-dbgsym
+      - libheimbase1-heimdal-dbgsym
+      - libheimntlm0-heimdal-dbgsym
       - libhogweed5-dbgsym
-#     - libcurl4-dbgsym
+      - libidn2-0-dbgsym
       - libicu66-dbgsym
-      - keyutils-dbgsym
+      - libkeyutils1-dbgsym
+      - libkrb5-dbg
       - libldap-2.4-2-dbgsym
+      - libnettle7-dbgsym
+      - libnghttp2-14-dbgsym
+#     - libnss-systemd-dbgsym
       - libssl1.1-dbgsym
       - libsqlite3-0-dbgsym
       - libidn11-dbgsym
@@ -40,9 +55,17 @@ Debug packages:
       - libpcre2-16-0-dbgsym
       - libpcre2-32-0-dbgsym
       - libpcre3-dbg
+      - libpsl5-dbgsym
+      - libroken18-heimdal-dbgsym
       - librtmp1-dbgsym
+      - libsasl2-2-dbgsym
+      - libsasl2-modules-dbgsym
+      - libsasl2-modules-db-dbgsym
+      - libssh-4-dbgsym
       - libstdc++6-dbgsym
       - libtasn1-6-dbgsym
+      - libunistring2-dbgsym
+      - libwind0-heimdal-dbgsym
       - libxml2-dbgsym
       - libyajl2-dbgsym
       - zlib1g-dbgsym
