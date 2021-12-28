@@ -1,4 +1,4 @@
-{% set release = salt['grains.get']('lsb_distrib_codename', 'xenial') %}
+{% set release = salt['grains.get']('lsb_distrib_codename', 'focal') %}
 
 include:
   - user

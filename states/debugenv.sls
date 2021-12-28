@@ -1,4 +1,4 @@
-{% set release = salt['grains.get']('lsb_distrib_codename', 'xenial') %}
+{% set release = salt['grains.get']('lsb_distrib_codename', 'focal') %}
 {% set kernelrelease = salt['grains.get']('kernelrelease') %}
 {% set virtual = salt['grains.get']('virtual') %}
 {% set baseuser = 'vagrant' %}
@@ -23,43 +23,31 @@ Debug packages:
       - gdb
       - libc6-dbg
 {% if grains['os'] == 'Ubuntu' %}
-      - libffi6-dbg
+      - libffi7-dbgsym
       - libgmp10-dbgsym
       - libgssapi3-heimdal-dbgsym
-      - libhogweed4-dbgsym
-{% if release == 'xenial' %}
-      - libgssapi-krb5-2-dbgsym
-      - libcurl3-dbg
-      - geoip-dbg
-      - libcomerr2-dbg
-      - libc6-dbgsym
-      - libicu55-dbgsym
-      - keyutils-dbg
-      - libldap-2.4-2-dbg
-      - libssl1.0.0-dbg
-      - libsqlite3-0-dbg
-{% endif %}
-{% if release == 'bionic' %}
-      - libcurl4-dbgsym
-      - libicu60-dbgsym
+      - libhogweed5-dbgsym
+#     - libcurl4-dbgsym
+      - libicu66-dbgsym
       - keyutils-dbgsym
       - libldap-2.4-2-dbgsym
       - libssl1.1-dbgsym
       - libsqlite3-0-dbgsym
-{% endif %}
       - libidn11-dbgsym
       - liblzma5-dbgsym
       - libp11-kit0-dbgsym
-      - libpcre2-dbg
+      - libpcre2-8-0-dbgsym
+      - libpcre2-16-0-dbgsym
+      - libpcre2-32-0-dbgsym
       - libpcre3-dbg
       - librtmp1-dbgsym
-      - libstdc++6-5-dbg
+      - libstdc++6-dbgsym
       - libtasn1-6-dbgsym
-      - libxml2-dbg
-      - libyajl2-dbg
+      - libxml2-dbgsym
+      - libyajl2-dbgsym
+      - zlib1g-dbgsym
       - linux-image-{{ kernelrelease }}-dbgsym
       - linux-tools-{{ kernelrelease }}
-      - zlib1g-dbg
 {% endif %}
       - systemtap
       - valgrind

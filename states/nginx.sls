@@ -1,5 +1,5 @@
 {% set os = salt['grains.get']('os').lower() %}
-{% set release = salt['grains.get']('lsb_distrib_codename', 'xenial') %}
+{% set release = salt['grains.get']('lsb_distrib_codename', 'focal') %}
 {% set nginxver = salt['pillar.get']('versions:nginx') %}
 
 include:
