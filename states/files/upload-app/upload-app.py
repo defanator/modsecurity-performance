@@ -27,7 +27,7 @@ def application(environ, start_response):
 
     start_response(status, response_headers)
 
-    return [response_body]
+    return [response_body.encode()]
 
 if __name__ == '__main__':
     try:
